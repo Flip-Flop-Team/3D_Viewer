@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package>
+    <DisplayName>Visualizador 3D</DisplayName>
+    <Description>Projeto Inicial de um Visualizador 3D utilizando o OpenGL</Description>
+    <Version>1.0.0-1</Version>
+    <ReleaseDate>2020-10-24</ReleaseDate>
+    <Default>true</Default>
+    <Script>installscript.qs</Script>
+</Package>

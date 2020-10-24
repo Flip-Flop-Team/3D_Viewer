@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Installer>
+    <Name>Instalador do Visualizador 3D</Name>
+    <Version>1.0.0</Version>
+    <Title>Visualizador 3D</Title>
+    <Publisher>Gabriel Zilmar, Lucca Lacerda e Mateus Alberto</Publisher>
+    <!-- Directory name is used in component.xml -->
+    <StartMenuDir>Visualizador 3D</StartMenuDir>
+    <TargetDir>@HomeDir@/Visualizador3D</TargetDir>
+</Installer>
