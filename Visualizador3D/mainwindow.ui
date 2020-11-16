@@ -62,6 +62,9 @@
       <height>601</height>
      </rect>
     </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
