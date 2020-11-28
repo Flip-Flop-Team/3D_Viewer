@@ -61,7 +61,7 @@ private:
     QVector3D *normals;
     QVector2D *texCoords;
     QVector4D *tangents;
-    unsigned int *indices;
+    std::vector<unsigned int> indices;
 
     QOpenGLBuffer *vboVertices;
     QOpenGLBuffer *vboNormals;
@@ -73,7 +73,7 @@ private:
     QOpenGLShader *fragmentShader;
     QOpenGLShaderProgram *shaderProgram;
     unsigned int currentShader;
-    int texID[2];
+    GLuint texID[2];
     QMatrix4x4 modelViewMatrix;
     QMatrix4x4 projectionMatrix;
 

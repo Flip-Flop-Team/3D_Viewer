@@ -6,7 +6,7 @@ GLWidget::GLWidget(QWidget *parent) : QOpenGLWidget(parent)
     normals = NULL;
     texCoords = NULL;
     tangents = NULL;
-    indices = NULL;
+    indices = std::vector<unsigned int>(0, 0);
 
     vboVertices = NULL;
     vboNormals = NULL;
@@ -33,15 +33,29 @@ GLWidget::~GLWidget()
 void GLWidget::initializeGL()
 {
     initializeOpenGLFunctions();
-
+    setUpdatesEnabled(true);
     glEnable(GL_DEPTH_TEST);
 
-    QImage texColor = QImage(":/textures/Wall_Stone_017_BaseColor.jpg");
-    QImage texNormal = QImage(":/textures/Wall_Stone_017_Normal.jpg");
+    QImage texColor = QImage(":/textures/textures/Wall_Stone_017_BaseColor.jpg");
+    QImage texNormal = QImage(":/textures/textures/Wall_Stone_017_Normal.jpg");
+    QImage readyTexColor = texColor.convertToFormat(QImage::Format_RGBA8888);
+    QImage readyTexNormal = texNormal.convertToFormat(QImage::Format_RGBA8888);
+
+    glGenTextures(2, texID);
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texID[0]);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, readyTexColor.width(), readyTexColor.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, readyTexColor.constBits());
+    glGenerateMipmap(GL_TEXTURE_2D);
+
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, texID[1]);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, readyTexNormal.width(), readyTexNormal.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, readyTexNormal.constBits());
+    glGenerateMipmap(GL_TEXTURE_2D);
+
     connect(&timer, SIGNAL(timeout()), this, SLOT(animate()));
     timer.start(0);
 }
@@ -179,8 +193,8 @@ void GLWidget::readOFFFile(const QString &fileName)
     delete[] vertices;
     vertices = new QVector4D[numVertices];
 
-    delete[] indices;
-    indices = new unsigned int[numFaces * 3];
+    indices.clear();
+    indices = std::vector<unsigned int>(0, 0);
 
     if(numVertices > 0) {
         double minLim = std::numeric_limits <double>::min();
@@ -210,13 +224,33 @@ void GLWidget::readOFFFile(const QString &fileName)
         }
     }
 
-    unsigned int a, b, c;
-    for(unsigned int i = 0; i < numFaces; i++) {
-        stream >> line >> a >> b >> c;
-        indices[i * 3] = a;
-        indices[i * 3 + 1] = b;
-        indices[i * 3 + 2] = c;
+    //unsigned int a, b, c;
+    //for(unsigned int i = 0; i < numFaces; i++) {
+    //    stream >> line >> a >> b >> c;
+    //    indices[i * 3] = a;
+    //    indices[i * 3 + 1] = b;
+    //    indices[i * 3 + 2] = c;
+    //}
+
+    unsigned int newNumFaces = 0;
+    for(unsigned int i = 0; i < numFaces; i++)
+    {
+        int numVerticesFace;
+        stream >> numVerticesFace;
+        std::vector<unsigned int> faceAtual = std::vector<unsigned int>(0,0);
+        for(int j = 0; j < numVerticesFace; j++){
+            unsigned int numero;
+            stream >> numero;
+            faceAtual.push_back(numero);
+        }
+        for(int j = 0; j < numVerticesFace-2; j++){
+            newNumFaces++;
+            indices.push_back(faceAtual[0]);
+            indices.push_back(faceAtual[j+1]);
+            indices.push_back(faceAtual[j+2]);
+        }
     }
+    numFaces = newNumFaces;
 
     stream.close();
 
@@ -340,16 +374,16 @@ void GLWidget::createShaders()
 {
     destroyShaders();
     QString vertexShaderFile[] = {
-        ":/shaders/vgouraud.glsl",
-        ":/shaders/vphong.glsl",
-        ":/shaders/vtexture.glsl",
-        ":/shaders/vnormal.glsl"
+        ":/shaders/shaders/vgouraud.glsl",
+        ":/shaders/shaders/vphong.glsl",
+        ":/shaders/shaders/vtexture.glsl",
+        ":/shaders/shaders/vnormal.glsl"
     };
     QString fragmentShaderFile[] = {
-        ":/shaders/fgouraud.glsl",
-        ":/shaders/fphong.glsl",
-        ":/shaders/ftexture.glsl",
-        ":/shaders/fnormal.glsl"
+        ":/shaders/shaders/fgouraud.glsl",
+        ":/shaders/shaders/fphong.glsl",
+        ":/shaders/shaders/ftexture.glsl",
+        ":/shaders/shaders/fnormal.glsl"
     };
 
     vertexShader = new QOpenGLShader(QOpenGLShader::Vertex);
@@ -425,9 +459,12 @@ void GLWidget::createVBOs()
     vboIndices->create();
     vboIndices->bind();
     vboIndices->setUsagePattern(QOpenGLBuffer::StaticDraw);
-    vboIndices->allocate(indices, numFaces * 3 * sizeof(unsigned int));
-    delete[] indices;
-    indices = NULL;
+
+    unsigned int copia[indices.size()];
+    std::copy(indices.begin(), indices.end(), copia);
+    vboIndices->allocate(copia, numFaces * 3 * sizeof(unsigned int));
+    indices.clear();
+    indices = std::vector<unsigned int>(0, 0);
 }
 
 void GLWidget::destroyVBOs()
