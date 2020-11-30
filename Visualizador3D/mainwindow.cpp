@@ -13,6 +13,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+//slot que recebe um sinal com o valor de fps alterado e mostra na tela
 void MainWindow::changeFPS(double fps) {
     QString text = QString::number(fps);
     text += " FPS";

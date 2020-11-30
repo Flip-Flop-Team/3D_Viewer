@@ -1,5 +1,6 @@
 #include "glwidget.h"
 
+//Construtor que irá inicializar algumas variáveis padrões do programa
 GLWidget::GLWidget(QWidget *parent) : QOpenGLWidget(parent)
 {
     vertices = NULL;
@@ -24,12 +25,14 @@ GLWidget::GLWidget(QWidget *parent) : QOpenGLWidget(parent)
     fpsCounter = 0.0;
 }
 
+//Destrutor da clase GLWidget
 GLWidget::~GLWidget()
 {
     destroyVBOs();
     destroyShaders();
 }
 
+//Inicializa o GLWidget ligando as texturas e os timers
 void GLWidget::initializeGL()
 {
     initializeOpenGLFunctions();
@@ -62,6 +65,7 @@ void GLWidget::initializeGL()
     frameTime.start();
 }
 
+//Efetua o redimensionamento da matriz de projeção sempre que o objeto sofre alguma interferência de zoom provido do mouse
 void GLWidget::resizeGL(int width , int height)
 {
     glViewport(0, 0, width, height);
@@ -75,6 +79,7 @@ void GLWidget::resizeGL(int width , int height)
     update();
 }
 
+//Renderiza todas as informações salvas do objeto
 void GLWidget::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -142,8 +147,8 @@ void GLWidget::paintGL()
     vboVertices->release();
     shaderProgram->release();
 
+    //Contagem de FPS para mostrar na tela (atualiza a cada 0.2 segundos)
     frameCounter++;
-
     int elapsedTime = frameTime.elapsed();
     if (elapsedTime >= 200) {
         fpsCounter = (double)frameCounter / double(elapsedTime) * 1000;
@@ -154,6 +159,7 @@ void GLWidget::paintGL()
 
 }
 
+//Muda a cor de fundo do GLWidget, abrindo uma caixa de diálogo para escolher a cor desejada
 void GLWidget::changeBackgroundColor()
 {
     QColor corFundo = QColorDialog::getColor(Qt::white, this, "Selecione a cor de fundo");
@@ -162,6 +168,7 @@ void GLWidget::changeBackgroundColor()
     update();
 }
 
+//Slot responsável de pegar a string com o nome do arquivo OFF(objeto tridimensional)
 void GLWidget::showFileOpenDialog()
 {
     QByteArray fileFormat = "off";
@@ -185,6 +192,7 @@ void GLWidget::showFileOpenDialog()
       }
 }
 
+//Responsável por ler o arquivo ".off"
 void GLWidget::readOFFFile(const QString &fileName)
 {
     std::ifstream stream;
@@ -233,6 +241,7 @@ void GLWidget::readOFFFile(const QString &fileName)
         }
     }
 
+    //Método triangle fan
     unsigned int newNumFaces = 0;
     for(unsigned int i = 0; i < numFaces; i++)
     {
@@ -255,11 +264,13 @@ void GLWidget::readOFFFile(const QString &fileName)
 
     stream.close();
 
+    //Sinal para a interface, com o objetivo de mostrar a quantidade de faces e vértices do objeto renderizado
     emit statusBarMessage(QString("Samples %1, Faces %2")
                             .arg(numVertices)
                             .arg(numFaces));
 }
 
+//Responsável por calcular os vetores normais de cada vértice do objeto
 void GLWidget::genNormals()
 {
     delete[] normals;
@@ -285,6 +296,7 @@ void GLWidget::genNormals()
     }
 }
 
+//Responsável por calcular as coordenadas das texturas do objeto
 void GLWidget::genTexCoordsCylinder()
 {
     delete[] texCoords;
@@ -310,6 +322,7 @@ void GLWidget::genTexCoordsCylinder()
     }
 }
 
+//Responsável por calcular as as tangentes do objeto
 void GLWidget::genTangents()
 {
     delete[] tangents;
@@ -371,6 +384,7 @@ void GLWidget::genTangents()
     delete[] bitangents;
 }
 
+//Responsável pela criação de cada um dos shaders
 void GLWidget::createShaders()
 {
     destroyShaders();
@@ -402,10 +416,11 @@ void GLWidget::createShaders()
     shaderProgram->addShader(fragmentShader);
 
     if (!shaderProgram->link()) {
-        qWarning() << shaderProgram->log() << "Algo" << Qt::endl;
+        qWarning() << shaderProgram->log() << Qt::endl;
     }
 }
 
+//Responsável pela destruição dos shaders utilizados no programa
 void GLWidget::destroyShaders()
 {
     delete vertexShader;
@@ -420,6 +435,7 @@ void GLWidget::destroyShaders()
     }
 }
 
+//Cria os Vertex Buffer Objects, que são responsáveis pelo objeto já pronto para ser renderizado criado de uma maneira otimizada
 void GLWidget::createVBOs()
 {
     destroyVBOs();
@@ -468,6 +484,7 @@ void GLWidget::createVBOs()
     indices = std::vector<unsigned int>(0, 0);
 }
 
+//Remove qualquer VBO existente de outros objetos
 void GLWidget::destroyVBOs()
 {
     if (vboVertices) {
@@ -501,27 +518,28 @@ void GLWidget::destroyVBOs()
     }
 }
 
+//Responsável pelos sinais do teclado, que são utilizados para a troca de Shaders
 void GLWidget::keyPressEvent(QKeyEvent *event)
 {
     switch (event->key())
     {
     case Qt::Key_0:
-        currentShader = 0;
+        currentShader = 0; //Gouraud
         createShaders();
         update();
         break;
     case Qt::Key_1:
-        currentShader = 1;
+        currentShader = 1; //Phong
         createShaders();
         update();
         break;
     case Qt::Key_2:
-        currentShader = 2;
+        currentShader = 2; //Phong com Textura
         createShaders();
         update();
         break;
     case Qt::Key_3:
-        currentShader = 3;
+        currentShader = 3; //Textura com mapeamento normal
         createShaders();
         update();
         break;
@@ -530,28 +548,33 @@ void GLWidget::keyPressEvent(QKeyEvent *event)
     }
 }
 
+//Cuida do movimento do mouse em relação a janela
 void GLWidget::mouseMoveEvent(QMouseEvent *event)
 {
     trackBall.mouseMove(event->pos());
 }
 
+//Cuida do pressionar no mouse
 void GLWidget::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() & Qt::LeftButton)
         trackBall.mousePress(event->pos());
 }
 
+//Cuida do mouse liberado
 void GLWidget::mouseReleaseEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton)
         trackBall.mouseRelease(event->pos());
 }
 
+//Cuida do scroll do mouse
 void GLWidget::wheelEvent(QWheelEvent *event)
 {
     zoom += 0.001 * event->angleDelta().y();
 }
 
+//Método que é chamado toda vez que a cena precisa ser mudada visualmente, ou seja, para animar a cena
 void GLWidget::animate()
 {
     makeCurrent();
