@@ -12,6 +12,9 @@
 #include <QOpenGLShader>
 #include <QOpenGLShaderProgram>
 #include <QTimer>
+#include <QElapsedTimer>
+#include <QColorDialog>
+#include <QColor>
 #include <QOpenGLFunctions>
 #include <QFileDialog>
 #include <QKeyEvent>
@@ -25,6 +28,7 @@
 #include "light.h"
 #include "material.h"
 #include "trackball.h"
+#include "mainwindow.h"
 
 class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions
 {
@@ -83,16 +87,19 @@ private:
 
     TrackBall trackBall;
     double zoom;
-    unsigned int fpsCounter;
+    double fpsCounter;
+    unsigned int frameCounter;
 
     QTimer timer;
+    QElapsedTimer frameTime;
 
 
 signals:
     void statusBarMessage(QString ns);
+    void fpsChanged(double fps);
 
 public slots:
-    void toggleBackgroundColor(bool toBlack);
+    void changeBackgroundColor();
     void showFileOpenDialog();
     void animate();
 };

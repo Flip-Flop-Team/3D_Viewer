@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.13.2, 2020-11-28T12:26:35. -->
+<!-- Written by QtCreator 4.13.2, 2020-11-30T01:10:12. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
-  <value type="QByteArray">{dc761b50-f7b1-42f4-b3ea-e5a1868fdfd5}</value>
+  <value type="QByteArray">{ad0666a5-b7ab-4328-bd89-93fa913ffaed}</value>
  </data>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
@@ -75,7 +75,7 @@
    <valuemap type="QVariantMap" key="ClangTools">
     <value type="bool" key="ClangTools.BuildBeforeAnalysis">true</value>
     <value type="QString" key="ClangTools.DiagnosticConfig">Builtin.DefaultTidyAndClazy</value>
-    <value type="int" key="ClangTools.ParallelJobs">3</value>
+    <value type="int" key="ClangTools.ParallelJobs">4</value>
     <valuelist type="QVariantList" key="ClangTools.SelectedDirs"/>
     <valuelist type="QVariantList" key="ClangTools.SelectedFiles"/>
     <valuelist type="QVariantList" key="ClangTools.SuppressedDiagnostics"/>
@@ -96,8 +96,8 @@
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.0">
     <value type="bool">true</value>
     <value type="int" key="EnableQmlDebugging">0</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:\Users\gabri\Desktop\User\Faculdade\6Periodo\ComputaçãoGrafica\3D_Viewer\build-Visualizador3D-Desktop_Qt_5_15_0_MinGW_64_bit-Debug</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">C:/Users/gabri/Desktop/User/Faculdade/6Periodo/ComputaçãoGrafica/3D_Viewer/build-Visualizador3D-Desktop_Qt_5_15_0_MinGW_64_bit-Debug</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:\Users\madof\OneDrive\Área de Trabalho\Faculdade\Computação Gráfica\Trabalhos\Projeto\build-Visualizador3D-Desktop_Qt_5_15_0_MinGW_64_bit-Debug</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">C:/Users/madof/OneDrive/Área de Trabalho/Faculdade/Computação Gráfica/Trabalhos/Projeto/build-Visualizador3D-Desktop_Qt_5_15_0_MinGW_64_bit-Debug</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -148,8 +148,8 @@
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.1">
     <value type="bool">true</value>
     <value type="int" key="EnableQmlDebugging">2</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:\Users\gabri\Desktop\User\Faculdade\6Periodo\ComputaçãoGrafica\3D_Viewer\build-Visualizador3D-Desktop_Qt_5_15_0_MinGW_64_bit-Release</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">C:/Users/gabri/Desktop/User/Faculdade/6Periodo/ComputaçãoGrafica/3D_Viewer/build-Visualizador3D-Desktop_Qt_5_15_0_MinGW_64_bit-Release</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:\Users\madof\OneDrive\Área de Trabalho\Faculdade\Computação Gráfica\Trabalhos\Projeto\build-Visualizador3D-Desktop_Qt_5_15_0_MinGW_64_bit-Release</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">C:/Users/madof/OneDrive/Área de Trabalho/Faculdade/Computação Gráfica/Trabalhos/Projeto/build-Visualizador3D-Desktop_Qt_5_15_0_MinGW_64_bit-Release</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -200,8 +200,8 @@
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.2">
     <value type="bool">true</value>
     <value type="int" key="EnableQmlDebugging">0</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:\Users\gabri\Desktop\User\Faculdade\6Periodo\ComputaçãoGrafica\3D_Viewer\build-Visualizador3D-Desktop_Qt_5_15_0_MinGW_64_bit-Profile</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">C:/Users/gabri/Desktop/User/Faculdade/6Periodo/ComputaçãoGrafica/3D_Viewer/build-Visualizador3D-Desktop_Qt_5_15_0_MinGW_64_bit-Profile</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:\Users\madof\OneDrive\Área de Trabalho\Faculdade\Computação Gráfica\Trabalhos\Projeto\build-Visualizador3D-Desktop_Qt_5_15_0_MinGW_64_bit-Profile</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">C:/Users/madof/OneDrive/Área de Trabalho/Faculdade/Computação Gráfica/Trabalhos/Projeto/build-Visualizador3D-Desktop_Qt_5_15_0_MinGW_64_bit-Profile</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -325,8 +325,8 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/gabri/Desktop/User/Faculdade/6Periodo/ComputaçãoGrafica/3D_Viewer/Visualizador3D/Visualizador3D.pro</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/gabri/Desktop/User/Faculdade/6Periodo/ComputaçãoGrafica/3D_Viewer/Visualizador3D/Visualizador3D.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/madof/OneDrive/Área de Trabalho/Faculdade/Computação Gráfica/Trabalhos/Projeto/3D_Viewer/Visualizador3D/Visualizador3D.pro</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/madof/OneDrive/Área de Trabalho/Faculdade/Computação Gráfica/Trabalhos/Projeto/3D_Viewer/Visualizador3D/Visualizador3D.pro</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
@@ -337,7 +337,7 @@
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">C:/Users/gabri/Desktop/User/Faculdade/6Periodo/ComputaçãoGrafica/3D_Viewer/build-Visualizador3D-Desktop_Qt_5_15_0_MinGW_64_bit-Release</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">C:/Users/madof/OneDrive/Área de Trabalho/Faculdade/Computação Gráfica/Trabalhos/Projeto/build-Visualizador3D-Desktop_Qt_5_15_0_MinGW_64_bit-Release</value>
    </valuemap>
    <value type="int" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
   </valuemap>

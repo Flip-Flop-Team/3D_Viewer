@@ -21,7 +21,7 @@ GLWidget::GLWidget(QWidget *parent) : QOpenGLWidget(parent)
 
     zoom = 0.0;
 
-    fpsCounter = 0;
+    fpsCounter = 0.0;
 }
 
 GLWidget::~GLWidget()
@@ -57,7 +57,9 @@ void GLWidget::initializeGL()
     glGenerateMipmap(GL_TEXTURE_2D);
 
     connect(&timer, SIGNAL(timeout()), this, SLOT(animate()));
+    connect(this, SIGNAL(fpsChanged(double)), this->parent()->parent(), SLOT(changeFPS(double)));
     timer.start(0);
+    frameTime.start();
 }
 
 void GLWidget::resizeGL(int width , int height)
@@ -140,16 +142,23 @@ void GLWidget::paintGL()
     vboVertices->release();
     shaderProgram->release();
 
+    frameCounter++;
+
+    int elapsedTime = frameTime.elapsed();
+    if (elapsedTime >= 200) {
+        fpsCounter = (double)frameCounter / double(elapsedTime) * 1000;
+        emit fpsChanged(fpsCounter);
+        frameTime.start();
+        frameCounter = 0;
+    }
+
 }
 
-void GLWidget::toggleBackgroundColor(bool toBlack)
+void GLWidget::changeBackgroundColor()
 {
+    QColor corFundo = QColorDialog::getColor(Qt::white, this, "Selecione a cor de fundo");
     makeCurrent();
-    if (toBlack) {
-        glClearColor(0, 0, 0, 1);
-    } else {
-        glClearColor(1, 1, 1, 1);
-    }
+    glClearColor(corFundo.redF(), corFundo.greenF(), corFundo.blueF(), corFundo.alphaF());
     update();
 }
 
@@ -223,14 +232,6 @@ void GLWidget::readOFFFile(const QString &fileName)
             vertices[i].setW(1);
         }
     }
-
-    //unsigned int a, b, c;
-    //for(unsigned int i = 0; i < numFaces; i++) {
-    //    stream >> line >> a >> b >> c;
-    //    indices[i * 3] = a;
-    //    indices[i * 3 + 1] = b;
-    //    indices[i * 3 + 2] = c;
-    //}
 
     unsigned int newNumFaces = 0;
     for(unsigned int i = 0; i < numFaces; i++)
