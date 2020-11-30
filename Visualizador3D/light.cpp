@@ -1,5 +1,6 @@
 #include "light.h"
 
+//Classe que define a posição e intensidade da luz
 Light::Light()
 {
     position = QVector4D(3.0, 3.0, 3.0, 0.0);

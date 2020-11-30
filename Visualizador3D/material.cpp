@@ -1,5 +1,6 @@
 #include "material.h"
 
+//Classe que define as características visuais do material da cena
 Material::Material()
 {
     ambient = QVector4D(1.0, 1.0, 1.0, 1.0);

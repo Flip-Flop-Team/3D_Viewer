@@ -59,39 +59,39 @@ private:
 
     QPointF pixelPosToViewPos(const QPointF &p);
 
-    unsigned int numVertices;
-    unsigned int numFaces;
-    QVector4D *vertices;
-    QVector3D *normals;
-    QVector2D *texCoords;
-    QVector4D *tangents;
-    std::vector<unsigned int> indices;
+    unsigned int numVertices; //número de vértices do objeto
+    unsigned int numFaces; //número de faces do objeto
+    QVector4D *vertices; //vértices do objeto
+    QVector3D *normals; //vetores normais do objeto
+    QVector2D *texCoords; //coordenadas das texturas do objeto
+    QVector4D *tangents; //vetores tangentes das faces do objeto
+    std::vector<unsigned int> indices; //vetor que indexa as faces triangulares
 
-    QOpenGLBuffer *vboVertices;
-    QOpenGLBuffer *vboNormals;
-    QOpenGLBuffer *vboTexCoords;
-    QOpenGLBuffer *vboTangents;
-    QOpenGLBuffer *vboIndices;
+    QOpenGLBuffer *vboVertices; //vbo dos vértices
+    QOpenGLBuffer *vboNormals; //vbo dos vetores normais
+    QOpenGLBuffer *vboTexCoords; //vbo das coordenadas das texturas
+    QOpenGLBuffer *vboTangents; //vbo das tangentes
+    QOpenGLBuffer *vboIndices; //vbo dos índices
 
-    QOpenGLShader *vertexShader;
-    QOpenGLShader *fragmentShader;
-    QOpenGLShaderProgram *shaderProgram;
-    unsigned int currentShader;
-    GLuint texID[2];
-    QMatrix4x4 modelViewMatrix;
-    QMatrix4x4 projectionMatrix;
+    QOpenGLShader *vertexShader; //shader de transformação de vértices
+    QOpenGLShader *fragmentShader; //shader que cria os fragmentos
+    QOpenGLShaderProgram *shaderProgram; //programa de shader sendo utilizado no momento, que junta o shader de vértices e fragmentos
+    unsigned int currentShader; //inteiro que indica qual shader está sendo utilizado no momento
+    GLuint texID[2]; //índices das coordenadas (0 - difusa e 1 - normal)
+    QMatrix4x4 modelViewMatrix; //matriz do objeto
+    QMatrix4x4 projectionMatrix; //matriz de projeção do objeto
 
-    Camera camera;
-    Light light;
-    Material material;
+    Camera camera; //informações da câmera
+    Light light; //posição e intensidade da luz
+    Material material; //informações das características do material do objeto
 
-    TrackBall trackBall;
-    double zoom;
-    double fpsCounter;
-    unsigned int frameCounter;
+    TrackBall trackBall; //comunicação entre as informações do mouse e a matriz de projeção
+    double zoom; //quantidade de zoom atual
+    double fpsCounter; //contador de fps
+    unsigned int frameCounter; //contador de quadros para calcular o fps
 
-    QTimer timer;
-    QElapsedTimer frameTime;
+    QTimer timer; //contador de tempo
+    QElapsedTimer frameTime; //timer para calcular o fps
 
 
 signals:
