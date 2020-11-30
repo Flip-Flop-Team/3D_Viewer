@@ -12,3 +12,9 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+void MainWindow::changeFPS(double fps) {
+    QString text = QString::number(fps);
+    text += " FPS";
+    ui->Lbl_FPSCounter->setText(text);
+}
